@@ -2,28 +2,46 @@
 
 
 View::View(QWidget *parent) : QMainWindow{parent} {
-
-    //
-    // Вынести данный код в отдельную функцию
-    //
-    this->mainContainer.reset(new QWidget(this));
-    this->mainContainer->setMinimumSize(QSize(480, 320));
-
-    this->mainContainerLayout.reset(new QVBoxLayout(this->mainContainer.data()));
-    this->mainContainer.data()->setLayout(this->mainContainerLayout.data());
-    this->setCentralWidget(this->mainContainer.data());
+    // Инициализация и настройка главного окна
+    this->initMainWindow();
+    this->configureMainWindow();
 
     // Инициализация и настройка блока для ввода исходных данных
     this->initInputBlock();
-    this->cofigureInputBlock();
+    this->configureInputBlock();
     this->addChildWidgetsToInputBlock();
 
     // Инициализация и настройка блока кнопок, управляющих ходом визуализации алгоритма
     this->initControlButtonsBlock();
+    this->configureControlButtonsBlock();
+    this->addChildWidgetsToControlButtonsBlock();
+
+    // Добавление настроенных блоков на главное окно
+    this->addBlocksToMainWindow();
 }
 
 
 View::~View() {}
+
+
+void View::initMainWindow() {
+    this->mainContainer.reset(new QWidget(this));
+    this->mainContainerLayout.reset(new QVBoxLayout(this->mainContainer.data()));
+}
+
+
+void View::configureMainWindow() {
+    this->mainContainer->setMinimumSize(QSize(720, 480));
+    this->mainContainer.data()->setLayout(this->mainContainerLayout.data());
+    this->setCentralWidget(this->mainContainer.data());
+}
+
+
+void View::addBlocksToMainWindow() {
+    this->mainContainerLayout->addLayout(this->containerForInput.data());
+    this->mainContainerLayout->addLayout(this->containerForControlButtons.data());
+    this->mainContainerLayout->addStretch();
+}
 
 
 void View::initInputBlock() {
@@ -31,13 +49,10 @@ void View::initInputBlock() {
     this->labelForInputFormat.reset(new QLabel(this));
     this->comboBoxForInputFormat.reset(new QComboBox(this));
     this->lineEditForInput.reset(new QLineEdit(this));
-
-    /// todo: Перенести эту строку в другую функцию
-    qobject_cast<QVBoxLayout*>(this->mainContainer.data()->layout())->addLayout(this->containerForInput.data());
 }
 
 
-void View::cofigureInputBlock() {
+void View::configureInputBlock() {
     ConfiguratorOfInputBlock configuratorOfInputBlock;
     configuratorOfInputBlock.configureLabelForInputFormat(this->labelForInputFormat.data());
     configuratorOfInputBlock.configureComboBoxForInputFormat(this->comboBoxForInputFormat.data());
@@ -59,16 +74,20 @@ void View::initControlButtonsBlock() {
     this->buttonOneStepBacward.reset(new QPushButton(this));
     this->buttonOneStepForward.reset(new QPushButton(this));
     this->buttonTenStepsForward.reset(new QPushButton(this));
-    this->buttonForwardToTheEnd.reset(new QPushButton(this));
+    this->buttonForwardToTheFinish.reset(new QPushButton(this));
     this->buttonAutoRun.reset(new QPushButton(this));
-
-    /// todo: Перенести эту строку в другую функцию
-    qobject_cast<QVBoxLayout*>(this->mainContainer.data()->layout())->addLayout(this->containerForControlButtons.data());
 }
 
 
-void View::cofigureControlButtonsBlock() {
-
+void View::configureControlButtonsBlock() {
+    ConfiguratorOfControlButtonsBlock configuratorOfControlButtonsBlock;
+    configuratorOfControlButtonsBlock.configureButtonBacwardToStart(this->buttonBacwardToTheStart.data());
+    configuratorOfControlButtonsBlock.configureButtonTenStepsBacward(this->buttonTenStepsBacward.data());
+    configuratorOfControlButtonsBlock.configureButtonOneStepBacward(this->buttonOneStepBacward.data());
+    configuratorOfControlButtonsBlock.configureButtonOneStepForward(this->buttonOneStepForward.data());
+    configuratorOfControlButtonsBlock.configureButtonTenStepsForward(this->buttonTenStepsForward.data());
+    configuratorOfControlButtonsBlock.configureButtonForwardToFinish(this->buttonForwardToTheFinish.data());
+    configuratorOfControlButtonsBlock.configureButtonAutoRun(this->buttonAutoRun.data());
 }
 
 
@@ -78,7 +97,8 @@ void View::addChildWidgetsToControlButtonsBlock() {
     this->containerForControlButtons->addWidget(this->buttonOneStepBacward.data());
     this->containerForControlButtons->addWidget(this->buttonOneStepForward.data());
     this->containerForControlButtons->addWidget(this->buttonTenStepsForward.data());
-    this->containerForControlButtons->addWidget(this->buttonForwardToTheEnd.data());
+    this->containerForControlButtons->addWidget(this->buttonForwardToTheFinish.data());
     this->containerForControlButtons->addWidget(this->buttonAutoRun.data());
+    this->containerForControlButtons->addStretch();
 }
 

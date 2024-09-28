@@ -1,0 +1,12 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+     <file>resources/images/start.png</file>
+     <file>resources/images/pause.png</file>
+     <file>resources/images/backward1.png</file>
+     <file>resources/images/backward10.png</file>
+     <file>resources/images/tostart.png</file>
+     <file>resources/images/forward1.png</file>
+     <file>resources/images/forward10.png</file>
+     <file>resources/images/tofinish.png</file>
+ </qresource>
+ </RCC>

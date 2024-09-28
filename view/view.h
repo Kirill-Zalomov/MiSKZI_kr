@@ -11,6 +11,7 @@
 #include <QComboBox>
 #include <QPushButton>
 #include "configurator_of_input_block.h"
+#include "configurator_of_control_buttons_block.h"
 
 
 class View : public QMainWindow {
@@ -33,15 +34,19 @@ private:
     QScopedPointer<QPushButton> buttonOneStepBacward;
     QScopedPointer<QPushButton> buttonOneStepForward;
     QScopedPointer<QPushButton> buttonTenStepsForward;
-    QScopedPointer<QPushButton> buttonForwardToTheEnd;
+    QScopedPointer<QPushButton> buttonForwardToTheFinish;
     QScopedPointer<QPushButton> buttonAutoRun;
 
+    void initMainWindow();
+    void configureMainWindow();
+    void addBlocksToMainWindow();
+
     void initInputBlock();
-    void cofigureInputBlock();
+    void configureInputBlock();
     void addChildWidgetsToInputBlock();
 
     void initControlButtonsBlock();
-    void cofigureControlButtonsBlock();
+    void configureControlButtonsBlock();
     void addChildWidgetsToControlButtonsBlock();
 
 public:

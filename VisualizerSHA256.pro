@@ -12,11 +12,15 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
+RESOURCES += resources.qrc
+
+
 SOURCES += \
     main.cpp \
     model/model.cpp \
     view/configurator_of_control_buttons_block.cpp \
     view/configurator_of_input_block.cpp \
+    view/configurator_of_visualising_block.cpp \
     view/view.cpp \
     controller/controller.cpp
 
@@ -26,6 +30,7 @@ HEADERS += \
     controller/controller.h \
     view/configurator_of_control_buttons_block.h \
     view/configurator_of_input_block.h \
+    view/configurator_of_visualising_block.h \
     view/view.h
 
 
@@ -39,3 +44,6 @@ INCLUDEPATH += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
+DISTFILES +=
