@@ -23,8 +23,8 @@
 
 class ConfiguratorOfControlButtonsBlock {
 private:
-    static constexpr QSize controlButtonSize {50, 30};
-    static constexpr QSize iconSize {20, 20};
+    static const QSize controlButtonSize;
+    static const QSize iconSize;
 
     void controlButtonGeneralConfiguration(QPushButton *controlButton);
 

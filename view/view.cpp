@@ -16,6 +16,11 @@ View::View(QWidget *parent) : QMainWindow{parent} {
     this->configureControlButtonsBlock();
     this->addChildWidgetsToControlButtonsBlock();
 
+    // Инициализация и настройка блока для визуализации работы алгоритма
+    this->initVisualisingBlock();
+    this->configureVisualisingBlock();
+    this->addChildWidgetsToVisualisingBlock();
+
     // Добавление настроенных блоков на главное окно
     this->addBlocksToMainWindow();
 }
@@ -33,6 +38,7 @@ void View::initMainWindow() {
 void View::configureMainWindow() {
     this->mainContainer->setMinimumSize(QSize(720, 480));
     this->mainContainer.data()->setLayout(this->mainContainerLayout.data());
+    this->mainContainerLayout->setSpacing(10);
     this->setCentralWidget(this->mainContainer.data());
 }
 
@@ -40,7 +46,7 @@ void View::configureMainWindow() {
 void View::addBlocksToMainWindow() {
     this->mainContainerLayout->addLayout(this->containerForInput.data());
     this->mainContainerLayout->addLayout(this->containerForControlButtons.data());
-    this->mainContainerLayout->addStretch();
+    this->mainContainerLayout->addWidget(this->containerForVisualisingBlock.data());
 }
 
 
@@ -102,3 +108,32 @@ void View::addChildWidgetsToControlButtonsBlock() {
     this->containerForControlButtons->addStretch();
 }
 
+
+void View::initVisualisingBlock() {
+    this->containerForVisualisingBlock.reset(new QScrollArea(this));
+    this->containerForVisualisingBlockLayout.reset(new QHBoxLayout(this));
+    this->labelDescription.reset(new QLabel(this));
+    this->labelWords.reset(new QLabel(this));
+    this->labelCalculations.reset(new QLabel(this));
+    this->labelKeys.reset(new QLabel(this));
+}
+
+
+void View::configureVisualisingBlock() {
+    this->containerForVisualisingBlock->setStyleSheet("border: 2px solid black;");
+    this->containerForVisualisingBlock->setLayout(this->containerForVisualisingBlockLayout.data());
+
+    ConfiguratorOfVisualisingBlock configuratorOfVisualisingBlock;
+    configuratorOfVisualisingBlock.configureLabelDescription(this->labelDescription.data());
+    configuratorOfVisualisingBlock.configureLabelWords(this->labelWords.data());
+    configuratorOfVisualisingBlock.configureLabelCalculations(this->labelCalculations.data());
+    configuratorOfVisualisingBlock.configureLabelKeys(this->labelKeys.data());
+}
+
+
+void View::addChildWidgetsToVisualisingBlock() {
+    this->containerForVisualisingBlockLayout->addWidget(this->labelDescription.data());
+    this->containerForVisualisingBlockLayout->addWidget(this->labelWords.data());
+    this->containerForVisualisingBlockLayout->addWidget(this->labelCalculations.data());
+    this->containerForVisualisingBlockLayout->addWidget(this->labelKeys.data());
+}

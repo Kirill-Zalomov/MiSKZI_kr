@@ -1,25 +1,27 @@
 #include "configurator_of_input_block.h"
 
 
+const QSize ConfiguratorOfInputBlock::labelForInputFormatSize = QSize(100, 25);
+const QSize ConfiguratorOfInputBlock::comboBoxForInputFormatSize = QSize(180, 25);
+
+
 ConfiguratorOfInputBlock::ConfiguratorOfInputBlock() {}
 
 
 void ConfiguratorOfInputBlock::configureLabelForInputFormat(QLabel *labelForInputFormat) {
-    QSize size = QSize(120, 25);
     labelForInputFormat->setText("Формат данных:");
     labelForInputFormat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    labelForInputFormat->setBaseSize(size);
-    labelForInputFormat->setMinimumSize(size);
-    labelForInputFormat->setMaximumSize(size);
+    labelForInputFormat->setBaseSize(ConfiguratorOfInputBlock::labelForInputFormatSize);
+    labelForInputFormat->setMinimumSize(ConfiguratorOfInputBlock::labelForInputFormatSize);
+    labelForInputFormat->setMaximumSize(ConfiguratorOfInputBlock::labelForInputFormatSize);
 }
 
 
 void ConfiguratorOfInputBlock::configureComboBoxForInputFormat(QComboBox *comboBoxForInputFormat) {
-    QSize size = QSize(120, 25);
     comboBoxForInputFormat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    comboBoxForInputFormat->setBaseSize(size);
-    comboBoxForInputFormat->setMinimumSize(size);
-    comboBoxForInputFormat->setMaximumSize(size);
+    comboBoxForInputFormat->setBaseSize(ConfiguratorOfInputBlock::comboBoxForInputFormatSize);
+    comboBoxForInputFormat->setMinimumSize(ConfiguratorOfInputBlock::comboBoxForInputFormatSize);
+    comboBoxForInputFormat->setMaximumSize(ConfiguratorOfInputBlock::comboBoxForInputFormatSize);
 
     comboBoxForInputFormat->addItem("Текстовый");
     comboBoxForInputFormat->addItem("Двоичный");

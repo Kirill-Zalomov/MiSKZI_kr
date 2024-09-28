@@ -1,6 +1,10 @@
 #include "configurator_of_control_buttons_block.h"
 
 
+const QSize ConfiguratorOfControlButtonsBlock::controlButtonSize = QSize(50, 30);
+const QSize ConfiguratorOfControlButtonsBlock::iconSize = QSize(20, 20);
+
+
 ConfiguratorOfControlButtonsBlock::ConfiguratorOfControlButtonsBlock() {}
 
 
