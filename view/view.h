@@ -41,6 +41,7 @@ private:
 
     // Элементы пользовательского интерфейса для блока визуализации работы алгоритма
     QScopedPointer<QScrollArea> containerForVisualisingBlock;
+    QScopedPointer<QWidget> containerForVisualisingBlockCentralWidget;
     QScopedPointer<QHBoxLayout> containerForVisualisingBlockLayout;
     QScopedPointer<QLabel> labelDescription;
     QScopedPointer<QLabel> labelWords;

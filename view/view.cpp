@@ -112,6 +112,7 @@ void View::addChildWidgetsToControlButtonsBlock() {
 void View::initVisualisingBlock() {
     this->containerForVisualisingBlock.reset(new QScrollArea(this));
     this->containerForVisualisingBlockLayout.reset(new QHBoxLayout(this));
+    this->containerForVisualisingBlockCentralWidget.reset(new QWidget(this));
     this->labelDescription.reset(new QLabel(this));
     this->labelWords.reset(new QLabel(this));
     this->labelCalculations.reset(new QLabel(this));
@@ -120,14 +121,12 @@ void View::initVisualisingBlock() {
 
 
 void View::configureVisualisingBlock() {
-    this->containerForVisualisingBlock->setStyleSheet("border: 2px solid black;");
-    this->containerForVisualisingBlock->setLayout(this->containerForVisualisingBlockLayout.data());
-
     ConfiguratorOfVisualisingBlock configuratorOfVisualisingBlock;
     configuratorOfVisualisingBlock.configureLabelDescription(this->labelDescription.data());
     configuratorOfVisualisingBlock.configureLabelWords(this->labelWords.data());
     configuratorOfVisualisingBlock.configureLabelCalculations(this->labelCalculations.data());
     configuratorOfVisualisingBlock.configureLabelKeys(this->labelKeys.data());
+    configuratorOfVisualisingBlock.configureScrollAreaForVisualizing(this->containerForVisualisingBlock.data());
 }
 
 
@@ -136,4 +135,8 @@ void View::addChildWidgetsToVisualisingBlock() {
     this->containerForVisualisingBlockLayout->addWidget(this->labelWords.data());
     this->containerForVisualisingBlockLayout->addWidget(this->labelCalculations.data());
     this->containerForVisualisingBlockLayout->addWidget(this->labelKeys.data());
+    this->containerForVisualisingBlockCentralWidget->setLayout(this->containerForVisualisingBlockLayout.data());
+    this->containerForVisualisingBlockCentralWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    this->containerForVisualisingBlock->setWidget(this->containerForVisualisingBlockCentralWidget.data());
 }

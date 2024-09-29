@@ -1,26 +1,34 @@
 #include "configurator_of_visualising_block.h"
 
 
-const QSize ConfiguratorOfVisualisingBlock::labelSize = QSize(150, 1000);
-const QFont ConfiguratorOfVisualisingBlock::labelFont = QFont("Monospace", 12);
+const QSize ConfiguratorOfVisualisingBlock::labelSize = QSize(250, 1000);
+const QFont ConfiguratorOfVisualisingBlock::labelFont = QFont("Monospace", 11);
 
 
 ConfiguratorOfVisualisingBlock::ConfiguratorOfVisualisingBlock() {}
 
 
 void ConfiguratorOfVisualisingBlock::labelGeneralConfiguration(QLabel *label) {
-    label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     label->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     label->setBaseSize(ConfiguratorOfVisualisingBlock::labelSize);
     label->setMinimumSize(ConfiguratorOfVisualisingBlock::labelSize);
     label->setFont(ConfiguratorOfVisualisingBlock::labelFont);
-    label->setStyleSheet("border: 0px;");
 }
 
 
 void ConfiguratorOfVisualisingBlock::configureLabelDescription(QLabel *labelDescription) {
     this->labelGeneralConfiguration(labelDescription);
     labelDescription->setText("#1");
+    /*
+    qint32 index = 0;
+    QString text;
+    while(index < 120) {
+        text.append("<p style=\"line-height:20%\">" + QString::number(index) + "<p>\n");
+        index++;
+    }
+    labelDescription->setText(text);
+    */
 }
 
 
@@ -39,4 +47,10 @@ void ConfiguratorOfVisualisingBlock::configureLabelCalculations(QLabel *labelCal
 void ConfiguratorOfVisualisingBlock::configureLabelKeys(QLabel *labelKeys) {
     this->labelGeneralConfiguration(labelKeys);
     labelKeys->setText("#4");
+}
+
+
+void ConfiguratorOfVisualisingBlock::configureScrollAreaForVisualizing(QScrollArea *scrollArea) {
+    scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    scrollArea->setAlignment(Qt::AlignCenter);
 }

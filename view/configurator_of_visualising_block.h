@@ -2,6 +2,8 @@
 #define CONFIGURATOR_OF_VISUALISING_BLOCK_H
 
 
+#include <QScrollArea>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QFont>
 
@@ -21,6 +23,7 @@ public:
     void configureLabelWords(QLabel *labelWords);
     void configureLabelCalculations(QLabel *labelCalculations);
     void configureLabelKeys(QLabel *labelKeys);
+    void configureScrollAreaForVisualizing(QScrollArea *scrollArea);
 };
 
 

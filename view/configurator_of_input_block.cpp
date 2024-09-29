@@ -1,7 +1,7 @@
 #include "configurator_of_input_block.h"
 
 
-const QSize ConfiguratorOfInputBlock::labelForInputFormatSize = QSize(100, 25);
+const QSize ConfiguratorOfInputBlock::labelForInputFormatSize = QSize(120, 25);
 const QSize ConfiguratorOfInputBlock::comboBoxForInputFormatSize = QSize(180, 25);
 
 
