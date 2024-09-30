@@ -140,3 +140,8 @@ void View::addChildWidgetsToVisualisingBlock() {
 
     this->containerForVisualisingBlock->setWidget(this->containerForVisualisingBlockCentralWidget.data());
 }
+
+
+void View::setProcessedInputText(const QString& text) {
+    this->lineEditForInput->setText(text);
+}

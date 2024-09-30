@@ -10,8 +10,9 @@
 class ConfiguratorOfInputBlock {
 
 private:
-    static const QSize labelForInputFormatSize;
-    static const QSize comboBoxForInputFormatSize;
+    static const QSize labelForInputFormatFixedSize;
+    static const QSize comboBoxForInputFormatFixedSize;
+    static const QSize lineEditForInputMinSize;
 
 public:
     ConfiguratorOfInputBlock();

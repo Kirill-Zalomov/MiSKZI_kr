@@ -14,10 +14,13 @@
 #include "configurator_of_input_block.h"
 #include "configurator_of_control_buttons_block.h"
 #include "configurator_of_visualising_block.h"
+#include "signals_with_slots_connector.h"
 
 
 class View : public QMainWindow {
     Q_OBJECT
+
+    friend class SignalsWithSlotsConnector;
 
 private:
     QScopedPointer<QWidget> mainContainer;
@@ -69,7 +72,8 @@ public:
     explicit View(QWidget *parent = nullptr);
     ~View();
 
-signals:
+public slots:
+    void setProcessedInputText(const QString& text);
 
 };
 
