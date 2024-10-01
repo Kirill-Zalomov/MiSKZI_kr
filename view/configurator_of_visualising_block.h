@@ -6,13 +6,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QFont>
+#include "model.h"
 
 
 class ConfiguratorOfVisualisingBlock {
 
 private:
     static const QSize labelSize;
-    static const QFont labelFont;
 
     void labelGeneralConfiguration(QLabel *label);
 

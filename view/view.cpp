@@ -53,6 +53,7 @@ void View::addBlocksToMainWindow() {
 void View::initInputBlock() {
     this->containerForInput.reset(new QHBoxLayout(this));
     this->labelForInputFormat.reset(new QLabel(this));
+    this->labelForInputCounter.reset(new QLabel(this));
     this->comboBoxForInputFormat.reset(new QComboBox(this));
     this->lineEditForInput.reset(new QLineEdit(this));
 }
@@ -63,6 +64,7 @@ void View::configureInputBlock() {
     configuratorOfInputBlock.configureLabelForInputFormat(this->labelForInputFormat.data());
     configuratorOfInputBlock.configureComboBoxForInputFormat(this->comboBoxForInputFormat.data());
     configuratorOfInputBlock.configureLineEditFotInput(this->lineEditForInput.data());
+    configuratorOfInputBlock.configureLabelForInputCounter(this->labelForInputCounter.data());
 }
 
 
@@ -70,6 +72,7 @@ void View::addChildWidgetsToInputBlock() {
     this->containerForInput->addWidget(this->labelForInputFormat.data());
     this->containerForInput->addWidget(this->comboBoxForInputFormat.data());
     this->containerForInput->addWidget(this->lineEditForInput.data());
+    this->containerForInput->addWidget(this->labelForInputCounter.data());
 }
 
 
@@ -144,4 +147,50 @@ void View::addChildWidgetsToVisualisingBlock() {
 
 void View::setProcessedInputText(const QString& text) {
     this->lineEditForInput->setText(text);
+}
+
+
+void View::setEnabledForControlButtons(const bool &newState) {
+    this->buttonBacwardToTheStart->setEnabled(newState);
+    this->buttonTenStepsBacward->setEnabled(newState);
+    this->buttonOneStepBacward->setEnabled(newState);
+    this->buttonOneStepForward->setEnabled(newState);
+    this->buttonTenStepsForward->setEnabled(newState);
+    this->buttonForwardToTheFinish->setEnabled(newState);
+    this->buttonAutoRun->setEnabled(newState);
+
+    if(newState) this->colorControlButtonToActiveMode();
+    else this->colorControlButtonToInactiveMode();
+}
+
+
+void View::colorControlButtonToActiveMode() {
+    this->buttonBacwardToTheStart->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_ACTIVE_COLOR));
+    this->buttonTenStepsBacward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_ACTIVE_COLOR));
+    this->buttonOneStepBacward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_ACTIVE_COLOR));
+    this->buttonOneStepForward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_ACTIVE_COLOR));
+    this->buttonTenStepsForward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_ACTIVE_COLOR));
+    this->buttonForwardToTheFinish->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_ACTIVE_COLOR));
+    this->buttonAutoRun->setStyleSheet(QString("background-color: %1;").arg(GREEN_BUTTON_ACTIVE_COLOR));
+}
+
+
+void View::colorControlButtonToInactiveMode() {
+    this->buttonBacwardToTheStart->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_INACTIVE_COLOR));
+    this->buttonTenStepsBacward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_INACTIVE_COLOR));
+    this->buttonOneStepBacward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_INACTIVE_COLOR));
+    this->buttonOneStepForward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_INACTIVE_COLOR));
+    this->buttonTenStepsForward->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_INACTIVE_COLOR));
+    this->buttonForwardToTheFinish->setStyleSheet(QString("background-color: %1;").arg(GREY_BUTTON_INACTIVE_COLOR));
+    this->buttonAutoRun->setStyleSheet(QString("background-color: %1;").arg(GREEN_BUTTON_INACTIVE_COLOR));
+}
+
+
+void View::clearInputTextInLineEdit() {
+    this->lineEditForInput->clear();
+}
+
+
+void View::setNewNumberOfCharactersInInput(const qsizetype &newNumber) {
+    this->labelForInputCounter->setText(QString("%1 / %2").arg(newNumber).arg(Model::maxCharactersNumber));
 }

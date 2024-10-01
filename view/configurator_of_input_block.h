@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QLineEdit>
+#include "model.h"
 
 
 class ConfiguratorOfInputBlock {
@@ -18,8 +19,10 @@ public:
     ConfiguratorOfInputBlock();
 
     void configureLabelForInputFormat(QLabel *labelForInputFormat);
+    void configureLabelForInputCounter(QLabel *labelForInputCount);
     void configureComboBoxForInputFormat(QComboBox *comboBoxForInputFormat);
     void configureLineEditFotInput(QLineEdit *lineEditForInput);
+
 };
 
 

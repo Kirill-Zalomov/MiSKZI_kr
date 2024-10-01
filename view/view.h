@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QPushButton>
+#include <QRegularExpressionValidator>
 #include "configurator_of_input_block.h"
 #include "configurator_of_control_buttons_block.h"
 #include "configurator_of_visualising_block.h"
@@ -29,6 +30,7 @@ private:
     // Элементы пользовательского интерфейса для блока ввода исходных данных
     QScopedPointer<QHBoxLayout> containerForInput;
     QScopedPointer<QLabel> labelForInputFormat;
+    QScopedPointer<QLabel> labelForInputCounter;
     QScopedPointer<QComboBox> comboBoxForInputFormat;
     QScopedPointer<QLineEdit> lineEditForInput;
 
@@ -68,13 +70,18 @@ private:
     void configureVisualisingBlock();
     void addChildWidgetsToVisualisingBlock();
 
+    void colorControlButtonToActiveMode();
+    void colorControlButtonToInactiveMode();
+
 public:
     explicit View(QWidget *parent = nullptr);
     ~View();
 
 public slots:
     void setProcessedInputText(const QString& text);
-
+    void setEnabledForControlButtons(const bool &enable);
+    void clearInputTextInLineEdit();
+    void setNewNumberOfCharactersInInput(const qsizetype &newNumber);
 };
 
 

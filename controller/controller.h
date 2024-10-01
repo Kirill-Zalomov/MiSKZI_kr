@@ -2,6 +2,8 @@
 #define CONTROLLER_H
 
 
+#include <QRegularExpressionValidator>
+#include <QRegularExpression>
 #include "view.h"
 #include "model.h"
 
@@ -21,6 +23,10 @@ public:
     explicit Controller(Model *model, View *view, QObject *parent = nullptr);
     ~Controller();
     void startControlling();
+
+signals:
+    void clearInputText();
+    void setEnableToControlButtons(const bool &newState);
 
 public slots:
     void onInputFormatChanged(const qint32 &index);

@@ -1,6 +1,9 @@
 #include "model.h"
 
 
+const QFont Model::mainFont = QFont("Monospace", 11);
+
+
 Model::Model(QObject *parent) : QObject(parent) {}
 Model::~Model() {}
 
@@ -9,8 +12,12 @@ QString Model::getInputText() const {
     return this->inputText;
 }
 void Model::setInputText(const QString &newInputText) {
+    if(this->inputText.isEmpty() && !newInputText.isEmpty())   emit setEnableToControlButtons(true);
+    if(!(this->inputText.isEmpty()) && newInputText.isEmpty()) emit setEnableToControlButtons(false);
+
     this->inputText = newInputText;
     emit inputTextHasBeenProcessed(this->inputText);
+    emit setNewNumberOfCharactersInInput(this->inputText.size());
 }
 
 
@@ -19,7 +26,4 @@ InputFormat Model::getInputFormat() const {
 }
 void Model::setInputFormat(const InputFormat &newInputFormat) {
     this->inputFormat = newInputFormat;
-}
-void Model::setInputFormat(const quint32 &newInputFormat) {
-    this->inputFormat = static_cast<InputFormat>(newInputFormat);
 }

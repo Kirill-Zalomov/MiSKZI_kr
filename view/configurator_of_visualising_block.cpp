@@ -2,7 +2,6 @@
 
 
 const QSize ConfiguratorOfVisualisingBlock::labelSize = QSize(250, 1000);
-const QFont ConfiguratorOfVisualisingBlock::labelFont = QFont("Monospace", 11);
 
 
 ConfiguratorOfVisualisingBlock::ConfiguratorOfVisualisingBlock() {}
@@ -13,7 +12,7 @@ void ConfiguratorOfVisualisingBlock::labelGeneralConfiguration(QLabel *label) {
     label->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     label->setBaseSize(ConfiguratorOfVisualisingBlock::labelSize);
     label->setMinimumSize(ConfiguratorOfVisualisingBlock::labelSize);
-    label->setFont(ConfiguratorOfVisualisingBlock::labelFont);
+    label->setFont(Model::mainFont);
 }
 
 

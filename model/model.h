@@ -3,6 +3,8 @@
 
 
 #include <QObject>
+#include <QRegularExpressionValidator>
+#include <QFont>
 #include "input_format_enum.h"
 
 
@@ -14,6 +16,9 @@ private:
     InputFormat inputFormat;
 
 public:
+    static constexpr qsizetype maxCharactersNumber { 1000 };
+    static const QFont mainFont;
+
     explicit Model(QObject *parent = nullptr);
     ~Model();
 
@@ -22,10 +27,11 @@ public:
 
     InputFormat getInputFormat() const;
     void setInputFormat(const InputFormat &newInputFormat);
-    void setInputFormat(const quint32 &newInputFormat);
 
 signals:
     void inputTextHasBeenProcessed(const QString& text);
+    void setEnableToControlButtons(const bool &newState);
+    void setNewNumberOfCharactersInInput(const qsizetype &newNumber);
 
 };
 
