@@ -6,6 +6,11 @@
 #include <QRegularExpression>
 #include "view.h"
 #include "model.h"
+#include "sha256.h"
+
+
+#include <iostream>
+#include <cstdint>
 
 
 class View;
@@ -32,6 +37,7 @@ public slots:
     void onInputFormatChanged(const qint32 &index);
     void onInputTextChanged(const QString &text);
     void onButtonAutoRunClicked();
+    void calculateSha256();
 
 };
 

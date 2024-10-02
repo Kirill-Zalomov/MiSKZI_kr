@@ -8,6 +8,7 @@ void SignalsWithSlotsConnector::connectViewWithController(View* view, Controller
     QObject::connect(view->comboBoxForInputFormat.data(), &QComboBox::currentIndexChanged, controller, &Controller::onInputFormatChanged, Qt::QueuedConnection);
     QObject::connect(view->lineEditForInput.data(), &QLineEdit::textEdited, controller, &Controller::onInputTextChanged, Qt::QueuedConnection);
     QObject::connect(view->buttonAutoRun.data(), &QPushButton::clicked, controller, &Controller::onButtonAutoRunClicked, Qt::QueuedConnection);
+    QObject::connect(view->buttonForwardToTheFinish.data(), &QPushButton::clicked, controller, &Controller::calculateSha256, Qt::QueuedConnection);
     QObject::connect(controller, &Controller::clearInputText, view, &View::clearInputTextInLineEdit, Qt::QueuedConnection);
 }
 

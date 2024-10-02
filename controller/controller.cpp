@@ -38,3 +38,10 @@ void Controller::onInputTextChanged(const QString &text) {
 void Controller::onButtonAutoRunClicked() {
     this->model->setVisualizationStarted(!(this->model->getVisualizationStarted()));
 }
+
+
+void Controller::calculateSha256() {
+    Sha256 shaCalculator;
+    shaCalculator.update(QString("123"));
+    qDebug() << shaCalculator.toString();
+}
