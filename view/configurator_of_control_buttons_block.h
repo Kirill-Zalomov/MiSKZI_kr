@@ -19,6 +19,8 @@
 #define GREY_BUTTON_INACTIVE_COLOR    ("#555555")
 #define GREEN_BUTTON_ACTIVE_COLOR     ("#108B10")
 #define GREEN_BUTTON_INACTIVE_COLOR   ("#105B10")
+#define RED_BUTTON_ACTIVE_COLOR     ("#9B1010")
+#define RED_BUTTON_INACTIVE_COLOR   ("#6B1010")
 
 
 class ConfiguratorOfControlButtonsBlock {

@@ -14,6 +14,7 @@ class Model : public QObject {
 private:
     QString inputText;
     InputFormat inputFormat;
+    bool visualizationStarted;
 
 public:
     static constexpr qsizetype maxCharactersNumber { 1000 };
@@ -28,10 +29,14 @@ public:
     InputFormat getInputFormat() const;
     void setInputFormat(const InputFormat &newInputFormat);
 
+    bool getVisualizationStarted() const;
+    void setVisualizationStarted(const bool &newValue);
+
 signals:
     void inputTextHasBeenProcessed(const QString& text);
     void setEnableToControlButtons(const bool &newState);
     void setNewNumberOfCharactersInInput(const qsizetype &newNumber);
+    void changeButtonRunOrPauseState(const bool &run);
 
 };
 

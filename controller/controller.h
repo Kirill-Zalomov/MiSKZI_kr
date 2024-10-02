@@ -31,6 +31,7 @@ signals:
 public slots:
     void onInputFormatChanged(const qint32 &index);
     void onInputTextChanged(const QString &text);
+    void onButtonAutoRunClicked();
 
 };
 

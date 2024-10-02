@@ -27,3 +27,12 @@ InputFormat Model::getInputFormat() const {
 void Model::setInputFormat(const InputFormat &newInputFormat) {
     this->inputFormat = newInputFormat;
 }
+
+
+bool Model::getVisualizationStarted() const {
+    return this->visualizationStarted;
+}
+void Model::setVisualizationStarted(const bool &newValue) {
+    this->visualizationStarted = newValue;
+    emit changeButtonRunOrPauseState(this->visualizationStarted);
+}

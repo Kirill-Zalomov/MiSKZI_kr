@@ -22,36 +22,42 @@ void ConfiguratorOfControlButtonsBlock::controlButtonGeneralConfiguration(QPushB
 void ConfiguratorOfControlButtonsBlock::configureButtonBacwardToStart(QPushButton *buttonBacwardToTheStart) {
     this->controlButtonGeneralConfiguration(buttonBacwardToTheStart);
     buttonBacwardToTheStart->setIcon(QIcon(ICONPATH_TO_START));
+    buttonBacwardToTheStart->setToolTip("Перейти к первому шагу");
 }
 
 
 void ConfiguratorOfControlButtonsBlock::configureButtonTenStepsBacward(QPushButton *buttonTenStepsBacward) {
     this->controlButtonGeneralConfiguration(buttonTenStepsBacward);
     buttonTenStepsBacward->setIcon(QIcon(ICONPATH_BACKWARD_TEN_STEPS));
+    buttonTenStepsBacward->setToolTip("Перейти на 10 шагов назад");
 }
 
 
 void ConfiguratorOfControlButtonsBlock::configureButtonOneStepBacward(QPushButton *buttonOneStepBacward) {
     this->controlButtonGeneralConfiguration(buttonOneStepBacward);
     buttonOneStepBacward->setIcon(QIcon(ICONPATH_BACKWARD_ONE_STEP));
+    buttonOneStepBacward->setToolTip("Перейти на 1 шаг назад");
 }
 
 
 void ConfiguratorOfControlButtonsBlock::configureButtonOneStepForward(QPushButton *buttonOneStepForward) {
     this->controlButtonGeneralConfiguration(buttonOneStepForward);
     buttonOneStepForward->setIcon(QIcon(ICONPATH_FORWARD_ONE_STEP));
+    buttonOneStepForward->setToolTip("Перейти на 1 шаг вперёд");
 }
 
 
 void ConfiguratorOfControlButtonsBlock::configureButtonTenStepsForward(QPushButton *buttonTenStepsForward) {
     this->controlButtonGeneralConfiguration(buttonTenStepsForward);
     buttonTenStepsForward->setIcon(QIcon(ICONPATH_FORWARD_TEN_STEPS));
+    buttonTenStepsForward->setToolTip("Перейти на 10 шагов вперёд");
 }
 
 
 void ConfiguratorOfControlButtonsBlock::configureButtonForwardToFinish(QPushButton *buttonForwardToTheFinish) {
     this->controlButtonGeneralConfiguration(buttonForwardToTheFinish);
     buttonForwardToTheFinish->setIcon(QIcon(ICONPATH_TO_FINISH));
+    buttonForwardToTheFinish->setToolTip("Перейти к последнему шагу");
 }
 
 
@@ -59,4 +65,5 @@ void ConfiguratorOfControlButtonsBlock::configureButtonAutoRun(QPushButton *butt
     this->controlButtonGeneralConfiguration(buttonAutoRun);
     buttonAutoRun->setIcon(QIcon(ICONPATH_START));
     buttonAutoRun->setStyleSheet(QString("background-color: %1;").arg(GREEN_BUTTON_INACTIVE_COLOR));
+    buttonAutoRun->setToolTip("Запустить визуализацию");
 }

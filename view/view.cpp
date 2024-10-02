@@ -203,3 +203,17 @@ void View::clearInputTextInLineEdit() {
 void View::setNewNumberOfCharactersInInput(const qsizetype &newNumber) {
     this->labelForInputCounter->setText(QString("%1 / %2").arg(newNumber).arg(Model::maxCharactersNumber));
 }
+
+
+void View::changeButtonRunOrPauseState(const bool &run) {
+    if(run) {
+        this->buttonAutoRun->setIcon(QIcon(ICONPATH_PAUSE));
+        this->buttonAutoRun->setStyleSheet(QString("background-color: %1;").arg(RED_BUTTON_ACTIVE_COLOR));
+        this->buttonAutoRun->setToolTip("Приостановить визуализацию");
+    }
+    else {
+        this->buttonAutoRun->setIcon(QIcon(ICONPATH_START));
+        this->buttonAutoRun->setStyleSheet(QString("background-color: %1;").arg(GREEN_BUTTON_ACTIVE_COLOR));
+        this->buttonAutoRun->setToolTip("Запустить визуализацию");
+    }
+}

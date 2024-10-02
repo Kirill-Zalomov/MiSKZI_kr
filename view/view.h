@@ -85,6 +85,8 @@ public slots:
     void setEnabledForControlButtons(const bool &enable);
     void clearInputTextInLineEdit();
     void setNewNumberOfCharactersInInput(const qsizetype &newNumber);
+    void changeButtonRunOrPauseState(const bool &run);
+
 };
 
 

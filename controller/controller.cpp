@@ -9,6 +9,11 @@ Controller::Controller(Model *model, View *view, QObject *parent) : QObject(pare
 Controller::~Controller() {}
 
 
+void Controller::startControlling() {
+    this->view->show();
+}
+
+
 void Controller::onInputFormatChanged(const qint32 &index) {
     InputFormat oldInputFormat = this->model->getInputFormat();
     InputFormat newInputFormat = static_cast<InputFormat>(index);
@@ -30,6 +35,6 @@ void Controller::onInputTextChanged(const QString &text) {
 }
 
 
-void Controller::startControlling() {
-    this->view->show();
+void Controller::onButtonAutoRunClicked() {
+    this->model->setVisualizationStarted(!(this->model->getVisualizationStarted()));
 }
