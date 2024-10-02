@@ -16,22 +16,24 @@ RESOURCES += resources.qrc
 
 
 SOURCES += \
-    controller/text_colorer.cpp \
     main.cpp \
     model/model.cpp \
+    controller/controller.cpp \
+    controller/text_colorer.cpp \
+    controller/sha256.cpp \
     signals_with_slots_connector.cpp \
     view/configurator_of_control_buttons_block.cpp \
     view/configurator_of_input_block.cpp \
     view/configurator_of_visualising_block.cpp \
-    view/view.cpp \
-    controller/controller.cpp
+    view/view.cpp
 
 
 HEADERS += \
-    controller/text_colorer.h \
     model/input_format_enum.h \
     model/model.h \
     controller/controller.h \
+    controller/text_colorer.h \
+    controller/sha256.h \
     signals_with_slots_connector.h \
     view/configurator_of_control_buttons_block.h \
     view/configurator_of_input_block.h \
