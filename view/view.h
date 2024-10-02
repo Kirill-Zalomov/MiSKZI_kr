@@ -12,6 +12,7 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QRegularExpressionValidator>
+#include <QtGui>
 #include "configurator_of_input_block.h"
 #include "configurator_of_control_buttons_block.h"
 #include "configurator_of_visualising_block.h"
@@ -69,6 +70,8 @@ private:
     void initVisualisingBlock();
     void configureVisualisingBlock();
     void addChildWidgetsToVisualisingBlock();
+
+    void moveMainWindowInCenterOfDisplay();
 
     void colorControlButtonToActiveMode();
     void colorControlButtonToInactiveMode();

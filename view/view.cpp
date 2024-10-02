@@ -5,6 +5,7 @@ View::View(QWidget *parent) : QMainWindow{parent} {
     // Инициализация и настройка главного окна
     this->initMainWindow();
     this->configureMainWindow();
+    this->moveMainWindowInCenterOfDisplay();
 
     // Инициализация и настройка блока для ввода исходных данных
     this->initInputBlock();
@@ -27,6 +28,14 @@ View::View(QWidget *parent) : QMainWindow{parent} {
 
 
 View::~View() {}
+
+
+void View::moveMainWindowInCenterOfDisplay() {
+    QPoint centralPositionForApplication = QGuiApplication::primaryScreen()->geometry().center();
+    centralPositionForApplication.setX(centralPositionForApplication.x() - (this->width()/2));
+    centralPositionForApplication.setY(centralPositionForApplication.y() - (this->width()/2));
+    this->move(centralPositionForApplication);
+}
 
 
 void View::initMainWindow() {

@@ -19,15 +19,6 @@ void ConfiguratorOfVisualisingBlock::labelGeneralConfiguration(QLabel *label) {
 void ConfiguratorOfVisualisingBlock::configureLabelDescription(QLabel *labelDescription) {
     this->labelGeneralConfiguration(labelDescription);
     labelDescription->setText("#1");
-    /*
-    qint32 index = 0;
-    QString text;
-    while(index < 120) {
-        text.append("<p style=\"line-height:20%\">" + QString::number(index) + "<p>\n");
-        index++;
-    }
-    labelDescription->setText(text);
-    */
 }
 
 

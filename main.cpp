@@ -28,5 +28,10 @@ int main(int argc, char *argv[]) {
     signalsWithSlotsConnector.connectModelWithView(model.data(), view.data());
 
     view.data()->show();
-    return application.exec();
+    qint32 result = application.exec();
+
+    threadForControllerAndModel.quit();
+    threadForControllerAndModel.wait();
+
+    return result;
 }
