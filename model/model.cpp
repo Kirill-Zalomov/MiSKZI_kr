@@ -12,12 +12,12 @@ QString Model::getInputText() const {
     return this->inputText;
 }
 void Model::setInputText(const QString &newInputText) {
-    if(this->inputText.isEmpty() && !newInputText.isEmpty())   emit setEnableToControlButtons(true);
-    if(!(this->inputText.isEmpty()) && newInputText.isEmpty()) emit setEnableToControlButtons(false);
+    if(this->inputText.isEmpty() && !newInputText.isEmpty())   emit this->setEnableToControlButtons(true);
+    if(!(this->inputText.isEmpty()) && newInputText.isEmpty()) emit this->setEnableToControlButtons(false);
 
     this->inputText = newInputText;
-    emit inputTextHasBeenProcessed(this->inputText);
-    emit setNewNumberOfCharactersInInput(this->inputText.size());
+    emit this->inputTextHasBeenProcessed(this->inputText);
+    emit this->setNewNumberOfCharactersInInput(this->inputText.size());
 }
 
 
@@ -26,6 +26,7 @@ InputFormat Model::getInputFormat() const {
 }
 void Model::setInputFormat(const InputFormat &newInputFormat) {
     this->inputFormat = newInputFormat;
+    emit this->setEnableToControlButtons(false);
 }
 
 
@@ -34,5 +35,5 @@ bool Model::getVisualizationStarted() const {
 }
 void Model::setVisualizationStarted(const bool &newValue) {
     this->visualizationStarted = newValue;
-    emit changeButtonRunOrPauseState(this->visualizationStarted);
+    emit this->changeButtonRunOrPauseState(this->visualizationStarted);
 }

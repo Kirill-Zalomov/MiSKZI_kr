@@ -20,7 +20,7 @@ void Controller::onInputFormatChanged(const qint32 &index) {
     if(oldInputFormat == newInputFormat) return;
 
     this->model->setInputFormat(newInputFormat);
-    emit clearInputText();
+    emit this->clearInputText();
 }
 
 
