@@ -16,9 +16,9 @@ public:
     QString toString();
 
 private:
-    quint8   m_data[64];
-    quint32  m_blocklen;
-    quint64  m_bitlen;
+    quint8   currentDataBlock[64];
+    quint32  lengthOfCurrentDataBlock;
+    quint64  lengthOfInputData;
     quint32  resultVariables[8]; //A, B, C, D, E, F, G, H
 
     static constexpr quint32 K[] = {

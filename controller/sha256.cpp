@@ -1,13 +1,10 @@
 #include "sha256.h"
-#include <cstring>
-#include <sstream>
-#include <iomanip>
 
 
 constexpr quint32 Sha256::K[];
 
 
-Sha256::Sha256(): m_blocklen(0), m_bitlen(0) {
+Sha256::Sha256(): lengthOfCurrentDataBlock(0), lengthOfInputData(0) {
     this->resultVariables[0] = 0x6a09e667;
     this->resultVariables[1] = 0xbb67ae85;
     this->resultVariables[2] = 0x3c6ef372;
@@ -21,13 +18,13 @@ Sha256::Sha256(): m_blocklen(0), m_bitlen(0) {
 
 void Sha256::update(const QByteArray &data) {
     for (qsizetype i = 0 ; i < data.size(); i++) {
-        this->m_data[this->m_blocklen++] = data[i];
-        if (this->m_blocklen == 64) {
+        this->currentDataBlock[this->lengthOfCurrentDataBlock++] = data[i];
+        if (this->lengthOfCurrentDataBlock == 64) {
             this->transform();
 
             // End of the block
-            this->m_bitlen += 512;
-            this->m_blocklen = 0;
+            this->lengthOfInputData += 512;
+            this->lengthOfCurrentDataBlock = 0;
         }
     }
 }
@@ -78,7 +75,7 @@ void Sha256::transform() {
     quint32 state[8];
 
     for (quint8 i = 0, j = 0; i < 16; i++, j += 4) { // Split data in 32 bit blocks for the 16 first words
-        m[i] = (this->m_data[j] << 24) | (this->m_data[j + 1] << 16) | (this->m_data[j + 2] << 8) | (this->m_data[j + 3]);
+        m[i] = (this->currentDataBlock[j] << 24) | (this->currentDataBlock[j + 1] << 16) | (this->currentDataBlock[j + 2] << 8) | (this->currentDataBlock[j + 3]);
     }
 
     for (quint8 k = 16 ; k < 64; k++) { // Remaining 48 blocks
@@ -118,29 +115,29 @@ void Sha256::transform() {
 
 void Sha256::pad() {
 
-    quint64 i = this->m_blocklen;
-    quint8  end = this->m_blocklen < 56 ? 56 : 64;
+    quint64 i = this->lengthOfCurrentDataBlock;
+    quint8  end = this->lengthOfCurrentDataBlock < 56 ? 56 : 64;
 
-    this->m_data[i++] = 0x80; // Append a bit 1
+    this->currentDataBlock[i++] = 0x80; // Append a bit 1
     while (i < end) {
-        this->m_data[i++] = 0x00; // Pad with zeros
+        this->currentDataBlock[i++] = 0x00; // Pad with zeros
     }
 
-    if(this->m_blocklen >= 56) {
+    if(this->lengthOfCurrentDataBlock >= 56) {
         this->transform();
-        memset(this->m_data, 0, 56);
+        memset(this->currentDataBlock, 0, 56);
     }
 
     // Append to the padding the total message's length in bits and transform.
-    this->m_bitlen += this->m_blocklen * 8;
-    this->m_data[63] = this->m_bitlen;
-    this->m_data[62] = this->m_bitlen >> 8;
-    this->m_data[61] = this->m_bitlen >> 16;
-    this->m_data[60] = this->m_bitlen >> 24;
-    this->m_data[59] = this->m_bitlen >> 32;
-    this->m_data[58] = this->m_bitlen >> 40;
-    this->m_data[57] = this->m_bitlen >> 48;
-    this->m_data[56] = this->m_bitlen >> 56;
+    this->lengthOfInputData += this->lengthOfCurrentDataBlock * 8;
+    this->currentDataBlock[63] = this->lengthOfInputData;
+    this->currentDataBlock[62] = this->lengthOfInputData >> 8;
+    this->currentDataBlock[61] = this->lengthOfInputData >> 16;
+    this->currentDataBlock[60] = this->lengthOfInputData >> 24;
+    this->currentDataBlock[59] = this->lengthOfInputData >> 32;
+    this->currentDataBlock[58] = this->lengthOfInputData >> 40;
+    this->currentDataBlock[57] = this->lengthOfInputData >> 48;
+    this->currentDataBlock[56] = this->lengthOfInputData >> 56;
     this->transform();
 }
 

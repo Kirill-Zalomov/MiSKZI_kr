@@ -3,7 +3,7 @@
 
 const QSize ConfiguratorOfInputBlock::labelForInputFormatFixedSize = QSize(130, 30);
 const QSize ConfiguratorOfInputBlock::comboBoxForInputFormatFixedSize = QSize(190, 30);
-const QSize ConfiguratorOfInputBlock::lineEditForInputMinSize = QSize(300, 30);
+const QSize ConfiguratorOfInputBlock::lineEditForInputMinSize = QSize(200, 30);
 
 
 ConfiguratorOfInputBlock::ConfiguratorOfInputBlock() {}
