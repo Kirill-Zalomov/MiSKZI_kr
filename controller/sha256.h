@@ -10,16 +10,19 @@ class Sha256 {
 
 public:
     Sha256();
-    void update(const QByteArray &data);
-    void update(const QString &data);
-    QByteArray digest();
-    QString toString();
+    void calculateHashSum(const QByteArray &data);
+    void calculateHashSum(const QString &data);
+    QByteArray getHash();
+    QString getHashAsString();
+    void clearState();
 
 private:
     quint8   currentDataBlock[64];
-    quint32  lengthOfCurrentDataBlock;
+    quint32  lengthOfCurrentDataBlock, currentStep, resultVariables[8];
     quint64  lengthOfInputData;
-    quint32  resultVariables[8]; //A, B, C, D, E, F, G, H
+
+    // Переменные, вынесенные в поля для пошагового выполнения алгоритма
+    quint32 maj, sum0, ch, sum1, temp1, updatedA, updatedE, w[64], h[8];
 
     static constexpr quint32 K[] = {
         0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,
@@ -40,14 +43,34 @@ private:
         0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
     };
 
-    quint32 rotr(quint32 x, quint32 n);
-    quint32 choose(quint32 e, quint32 f, quint32 g);
+    quint32 rotateRight(quint32 x, quint32 n);
+    quint32 choice(quint32 e, quint32 f, quint32 g);
     quint32 majority(quint32 a, quint32 b, quint32 c);
-    quint32 sig0(quint32 x);
-    quint32 sig1(quint32 x);
-    void transform();
+    quint32 sigma0(quint32 x);
+    quint32 sigma1(quint32 x);
+    void transformCurrentBlock();
     void pad();
     void revert(QByteArray &hash);
+
+    // Функция, определяющая по номеру шага какую операцию нужно выполнить
+    void determineOperation();
+
+    // Отдельные шаги алгоритма
+    void setStartValuesToResultVariables();
+    void prepareFirst16Words();
+    void generateLast48Words(const quint32 &k);
+    void takeHashFromPreviousBlockProcessing();
+    void makeIterationOfHashCalculating(const quint32 &l);
+    void saveHashValuesFromIteration();
+
+public slots:
+    void makeIterationForward();
+    void makeIterationBackward();
+    void makeTenIterationsForward();
+    void makeTenIterationsBackward();
+    void goToStart();
+    void goToFinish();
+
 };
 
 

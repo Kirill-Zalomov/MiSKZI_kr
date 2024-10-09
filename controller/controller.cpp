@@ -42,6 +42,9 @@ void Controller::onButtonAutoRunClicked() {
 
 void Controller::calculateSha256() {
     Sha256 shaCalculator;
-    shaCalculator.update(QString("123"));
-    qDebug() << shaCalculator.toString();
+    shaCalculator.calculateHashSum(QString("123"));
+    qDebug() << shaCalculator.getHashAsString();
+    shaCalculator.clearState();
+    shaCalculator.calculateHashSum(QString("123"));
+    qDebug() << shaCalculator.getHashAsString();
 }
