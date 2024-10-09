@@ -18,7 +18,7 @@ public:
 
 private:
     quint8   currentDataBlock[64];
-    quint32  lengthOfCurrentDataBlock, currentStep, resultVariables[8];
+    quint32  bytesInCurrentBlock, currentStep, numberOfProcessedDataBlocks, totalLengthOfInputData, resultVariables[8];
     quint64  lengthOfInputData;
 
     // Переменные, вынесенные в поля для пошагового выполнения алгоритма
@@ -57,6 +57,7 @@ private:
 
     // Отдельные шаги алгоритма
     void setStartValuesToResultVariables();
+    void prepareNextDataBlock();
     void prepareFirst16Words();
     void generateLast48Words(const quint32 &k);
     void takeHashFromPreviousBlockProcessing();

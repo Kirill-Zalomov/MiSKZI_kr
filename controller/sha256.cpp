@@ -4,7 +4,7 @@
 constexpr quint32 Sha256::K[];
 
 
-Sha256::Sha256(): lengthOfCurrentDataBlock(0), lengthOfInputData(0) {
+Sha256::Sha256(): bytesInCurrentBlock(0), lengthOfInputData(0) {
     this->setStartValuesToResultVariables();
     this->currentStep = {0};
 }
@@ -12,34 +12,28 @@ Sha256::Sha256(): lengthOfCurrentDataBlock(0), lengthOfInputData(0) {
 
 void Sha256::calculateHashSum(const QByteArray &data) {
     for (qsizetype i = 0 ; i < data.size(); i++) {
-        this->currentDataBlock[this->lengthOfCurrentDataBlock++] = data[i];
-        if (this->lengthOfCurrentDataBlock == 64) {
+        this->currentDataBlock[this->bytesInCurrentBlock++] = data[i];
+        if (this->bytesInCurrentBlock == 64) {
             this->transformCurrentBlock();
             this->lengthOfInputData += 512;
-            this->lengthOfCurrentDataBlock = 0;
+            this->bytesInCurrentBlock = 0;
         }
     }
 }
 
 
-void Sha256::determineOperation() {
-    quint32 stepInIteration = this->currentStep % 114;
-    if(stepInIteration == 0) {
+//void Sha256::prepareNextDataBlock() {
+//    quint32  processedBytes         = this->numberOfProcessedDataBlocks * 64;
+//    quint32  processToByteWithIndex = processedBytes + ((this->data.size() / (processedBytes * 64)) == 0 ? this->data.size() % 64 : 64);
 
-    }
-    if(stepInIteration == 1) {
+//    for (qsizetype i = processedBytes; i < processToByteWithIndex; i++) {
+//        this->currentDataBlock[this->bytesInCurrentBlock++] = data[i];
+//    }
 
-    }
-    if(stepInIteration >= 2 && stepInIteration <= 49) {
-
-    }
-    if(stepInIteration >= 50 && stepInIteration <= 112) {
-
-    }
-    if(stepInIteration == 113) {
-
-    }
-}
+//    this->transformCurrentBlock();
+//    this->lengthOfInputData += 512;
+//    this->bytesInCurrentBlock = 0;
+//}
 
 
 void Sha256::calculateHashSum(const QString &data) {
@@ -82,6 +76,28 @@ quint32 Sha256::sigma0(quint32 x) {
 // Реализация логической функции Sigma1
 quint32 Sha256::sigma1(quint32 x) {
     return this->rotateRight(x, 17) ^ this->rotateRight(x, 19) ^ (x >> 10);
+}
+
+
+void Sha256::determineOperation() {
+    quint32 stepInIteration = this->currentStep % 114;
+    if(stepInIteration == 0) {
+//        this->prepareNextDataBlock();
+    }
+    else if(stepInIteration == 1) {
+        this->prepareFirst16Words();
+        this->takeHashFromPreviousBlockProcessing();
+    }
+    else if(stepInIteration >= 2 && stepInIteration <= 49) {
+        this->generateLast48Words(stepInIteration + 14);
+    }
+    else if(stepInIteration >= 50 && stepInIteration <= 113) {
+        this->makeIterationOfHashCalculating(stepInIteration = 50);
+    }
+
+    if(stepInIteration == 113) {
+        this->numberOfProcessedDataBlocks++;
+    }
 }
 
 
@@ -162,8 +178,8 @@ void Sha256::saveHashValuesFromIteration() {
 
 void Sha256::pad() {
 
-    quint64 i = this->lengthOfCurrentDataBlock;
-    quint8  end = this->lengthOfCurrentDataBlock < 56 ? 56 : 64;
+    quint64 i = this->bytesInCurrentBlock;
+    quint8  end = this->bytesInCurrentBlock < 56 ? 56 : 64;
 
     // Добавление одиночного бита (0x01) к текущему блоку данных на индекс i и дополнение нулями
     this->currentDataBlock[i++] = 0x80;
@@ -171,13 +187,13 @@ void Sha256::pad() {
         this->currentDataBlock[i++] = 0x00;
     }
 
-    if(this->lengthOfCurrentDataBlock >= 56) {
+    if(this->bytesInCurrentBlock >= 56) {
         this->transformCurrentBlock();
         memset(this->currentDataBlock, 0, 56);
     }
 
     // Добавление к заполнению общую длину сообщения в битах и вычисление контрольной суммы по блоку
-    this->lengthOfInputData += this->lengthOfCurrentDataBlock * 8;
+    this->lengthOfInputData += this->bytesInCurrentBlock * 8;
     this->currentDataBlock[63] = this->lengthOfInputData;
     this->currentDataBlock[62] = this->lengthOfInputData >> 8;
     this->currentDataBlock[61] = this->lengthOfInputData >> 16;
@@ -213,7 +229,7 @@ QString Sha256::getHashAsString() {
 
 void Sha256::clearState() {
     this->currentDataBlock[64] = {0};
-    this->lengthOfCurrentDataBlock = {0};
+    this->bytesInCurrentBlock = {0};
     this->lengthOfInputData = {0};
     this->maj = {0};
     this->sum0 = {0};
@@ -225,6 +241,8 @@ void Sha256::clearState() {
     this->w[64] = {0};
     this->h[8] = {0};
     this->currentStep = {0};
+    this->numberOfProcessedDataBlocks = {0};
+    this->totalLengthOfInputData = {0};
 
     this->setStartValuesToResultVariables();
 }
@@ -239,4 +257,35 @@ void Sha256::setStartValuesToResultVariables() {
     this->resultVariables[5] = 0x9b05688c;
     this->resultVariables[6] = 0x1f83d9ab;
     this->resultVariables[7] = 0x5be0cd19;
+}
+
+
+//void Sha256::makeIterationForward() {
+//    this->determineOperation();
+//    this->stepInIteration++;
+//}
+
+
+void Sha256::makeIterationBackward() {
+
+}
+
+
+void Sha256::makeTenIterationsForward() {
+
+}
+
+
+void Sha256::makeTenIterationsBackward() {
+
+}
+
+
+void Sha256::goToStart() {
+
+}
+
+
+void Sha256::goToFinish() {
+
 }
